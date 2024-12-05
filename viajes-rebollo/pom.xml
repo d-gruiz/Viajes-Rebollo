@@ -5,8 +5,8 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.1.5</version>
-    <relativePath />
+    <version>3.1.4</version> <!-- Replace with the latest version -->
+    <relativePath/> <!-- Look for the parent in the repository -->
   </parent>
 
   <groupId>es.udc</groupId>
@@ -15,6 +15,8 @@
   <packaging>jar</packaging>
 
   <name>viajes-rebollo</name>
+  <url>http://maven.apache.org</url>
+
   <description>Backend para la gestión de viajes</description>
 
   <properties>
@@ -64,6 +66,33 @@
       <version>5.5.0</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <dependency>
+    <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.30</version> <!-- Use the latest version -->
+      <scope>provided</scope>
+    </dependency>
 
     <!-- Spring Boot Devtools -->
     <dependency>
@@ -92,6 +121,10 @@
           <target>${java.version}</target>
           <encoding>UTF-8</encoding>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>

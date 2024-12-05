@@ -3,6 +3,10 @@ spring:
     url: jdbc:mysql://localhost:3306/viajes_rebollo
     username: app_user
     password: app_password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
   profiles:
     active: dev
 server:
