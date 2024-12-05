@@ -23,5 +23,6 @@ npm run dev
 ```
 ## Backend
 ```bash
+cd viajes-rebollo
 mvn spring-boot:run
 ```
