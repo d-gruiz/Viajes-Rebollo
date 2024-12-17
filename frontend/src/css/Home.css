@@ -1,0 +1,30 @@
+/* Container for the Home component */
+.Home {
+    display: flex; /* Flexbox for centering content */
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    height: 100vh; /* Full height of the viewport */
+    margin: 0;
+  }
+  
+  /* Styles for buttons */
+  .HomeButton {
+    background-color: #d3d3d3; /* Grayish background color */
+    color: #000; /* Black text */
+    border: 2px solid #000; /* Black border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 15px 30px; /* Button padding */
+    font-size: 18px; /* Font size */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin: 10px 0; /* Space between buttons */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+  }
+  
+  /* Hover effect for buttons */
+  .HomeButton:hover {
+    background-color: #bbbbbb; /* Slightly darker gray on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+  }
+  

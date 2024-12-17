@@ -1,0 +1,116 @@
+/* Contenedor principal de la vista */
+.TravelView {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  background-color: #f8f8f8;
+  font-family: Arial, sans-serif;
+  height: 100vh; /* Ocupa toda la pantalla */
+  box-sizing: border-box;
+}
+
+/* Título de las secciones */
+.Tabs {
+  width: 100%;
+  font-weight: bold;
+  margin: 10px 0;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+  position: relative;
+}
+
+/* Línea de puntos debajo del título */
+.Tabs::after {
+  content: '............................................................................................';
+  flex: 1;
+  font-size: 12px;
+  color: #999;
+  margin-left: 10px;
+  pointer-events: none;
+}
+
+/* Filtro */
+.FilterIcon {
+  position: absolute;
+  right: 0;
+  font-size: 16px;
+  color: #555;
+  cursor: pointer;
+}
+
+/* Lista de viajes */
+.TravelList {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.TravelCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Información del viaje */
+.TravelInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.TravelName {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+}
+
+.TravelDate {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Estado del viaje */
+.TravelStatus {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.TravelStatus.realized {
+  background-color: #d3f9d8; /* Verde claro */
+  color: #2e7d32;
+}
+
+.TravelStatus.pending {
+  background-color: #fff4cc; /* Amarillo claro */
+  color: #ff8c00;
+}
+
+.TravelStatus.paid {
+  background-color: #d0ebff; /* Azul claro */
+  color: #1e88e5;
+}
+
+/* Botón "Pagar ahora" */
+.PayNowButton {
+  background-color: #ff8c00;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.PayNowButton:hover {
+  background-color: #e67e00;
+}

@@ -1,0 +1,98 @@
+/* Estilos para la plantilla o paquete */
+.plantilla {
+    background-color: #f9f9f9; /* Fondo claro para cada tarjeta */
+    border: 1px solid #ddd; /* Borde gris claro */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 20px;
+    margin: 15px 0; /* Espaciado entre cada elemento */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Animación de transición al pasar el ratón */
+  }
+  
+  .plantilla:hover {
+    transform: translateY(-5px); /* Efecto de desplazamiento hacia arriba */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada al pasar el ratón */
+  }
+  
+  /* Títulos y elementos importantes */
+  .plantillaNombre {
+    font-size: 1.5rem; /* Tamaño de fuente más grande */
+    font-weight: bold; /* Negrita para el nombre */
+    color: #333; /* Color oscuro para el nombre */
+    margin-bottom: 10px; /* Espaciado debajo del nombre */
+    text-align: center; /* Centrado del nombre */
+  }
+  
+  .plantillaPrecio {
+    font-size: 1.25rem; /* Un poco más grande para el precio */
+    font-weight: bold; /* Precio en negrita */
+    color: #007bff; /* Color azul para el precio */
+    text-align: center; /* Centrado del precio */
+    margin-top: 15px; /* Espaciado en la parte superior */
+  }
+  
+  /* Estilos de detalles adicionales */
+  .plantilla p {
+    font-size: 1rem; /* Tamaño estándar del texto */
+    color: #555; /* Color gris oscuro para el texto */
+    line-height: 1.5; /* Espaciado entre líneas para mayor legibilidad */
+    margin: 5px 0; /* Espaciado entre párrafos */
+  }
+  
+  .spacing {
+    height: 10px; /* Espaciado entre elementos */
+  }
+  
+  /* Estilo para la lista de actividades */
+  .plantilla ul {
+    padding-left: 20px; /* Sangría para la lista */
+  }
+  
+  .plantilla ul li {
+    font-size: 1rem; /* Tamaño de fuente estándar */
+    color: #666; /* Gris para las actividades */
+    margin-bottom: 5px; /* Espaciado entre actividades */
+  }
+  
+  /* En caso de que no haya actividades */
+  .plantilla .no-actividades {
+    font-style: italic; /* Cursiva para el texto */
+    color: #999; /* Gris claro */
+    text-align: center; /* Centramos el mensaje */
+    margin-top: 10px;
+  }
+  
+  /* Estilos para el botón de eliminar */
+.deleteButton {
+  background-color: #dc3545; /* Rojo para indicar eliminar */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.deleteButton:hover {
+  background-color: #c82333; /* Rojo más oscuro al pasar el ratón */
+}
+
+.createPlanButton {
+  background-color: #28a745; /* Verde */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.createPlanButton:hover {
+  background-color: #218838; /* Verde más oscuro al pasar el ratón */
+}

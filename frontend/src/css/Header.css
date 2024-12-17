@@ -1,0 +1,22 @@
+.Header {
+  position: fixed; /* Always stays at the top */
+  width: 100%; /* Full width of the screen */
+  background-color: #d3d3d3; /* Grayish background */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adds shadow effect */
+  padding: 10px 20px; /* Spacing inside the header */
+  z-index: 1000; /* Ensures it stays above other elements */
+  text-align: center; /* Centers the content */
+}
+
+.Header > div {
+  display: inline-block; /* Align elements next to each other */
+  margin: 0 15px; /* Spacing between the links */
+  color: #000000; /* Black text for visibility */
+  font-weight: bold; /* Bold text */
+  cursor: pointer; /* Pointer cursor for interactivity */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.Header > div:hover {
+  color: #555555; /* Darker color on hover */
+}

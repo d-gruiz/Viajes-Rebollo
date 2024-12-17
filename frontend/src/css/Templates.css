@@ -1,0 +1,91 @@
+.TravelPlanView {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
+  height: 100vh; /* Ajusta la altura total de la vista */
+  gap: 10px; /* Espaciado entre elementos */
+  background-color: #f0f0f0; /* Fondo gris claro */
+}
+
+.TravelPlanView > div:first-child {
+  grid-column: 1 / -1; /* Hace que el título ocupe todo el ancho */
+  background-color: #d3d3d3; /* Fondo gris */
+  text-align: center;
+  padding: 10px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+
+.userListsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas para las listas */
+  grid-column: 1 / -1; /* Que ocupe todo el ancho del contenedor padre */
+  gap: 10px; /* Espacio entre columnas */
+  background-color: #e0e0e0; /* Fondo gris intermedio */
+  padding: 10px;
+}
+
+.userListSection {
+  background-color: #d9d9d9; /* Fondo gris más oscuro */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-height: 200px; /* Asegura altura mínima */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.createTravelButtonContainer {
+  grid-column: 1 / -1; /* Hace que el botón ocupe todo el ancho */
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  background-color: #f0f0f0; /* Fondo gris */
+}
+
+.createTravelButton {
+  background-color: #b0b0b0; /* Botón con fondo gris */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.createTravelButton:hover {
+  background-color: #8c8c8c; /* Gris más oscuro al pasar el ratón */
+}
+
+.headerContainer {
+  display: flex; /* Flexbox para alinear elementos en línea */
+  align-items: center; /* Alinear verticalmente al centro */
+  justify-content: space-between; /* Separar los elementos horizontalmente */
+  background-color: #d3d3d3; /* Fondo gris */
+  padding: 10px 20px; /* Espaciado interno */
+  border-bottom: 2px solid #ccc; /* Opcional: Borde inferior */
+}
+
+.headerContainer h1 {
+  margin: 0; /* Elimina márgenes predeterminados del h1 */
+  font-size: 1.8rem; /* Ajusta el tamaño del texto */
+  color: #333; /* Color de texto */
+}
+
+.headerContainer button {
+  background-color: #b0b0b0; /* Fondo gris del botón */
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.headerContainer button:hover {
+  background-color: #8c8c8c; /* Gris más oscuro al pasar el ratón */
+}

@@ -1,0 +1,69 @@
+/* Templates.css */
+
+/* Contenedor principal */
+.travelListContainer {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Título de la página */
+  .headerContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .headerContainer h1 {
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  /* Contenedor para la lista de planes de viaje */
+  .travelList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Crear columnas flexibles */
+    gap: 20px; /* Espacio entre los elementos */
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Estilo de cada elemento de viaje */
+  .travelPlanElement {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .travelPlanElement h3 {
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .travelPlanElement p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .travelPlanElement ul {
+    padding-left: 20px;
+  }
+  
+  .travelPlanElement ul li {
+    list-style-type: disc;
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+  
+  /* Estilos para asegurar que los elementos de la lista se vean bien en pantallas más pequeñas */
+  @media (max-width: 768px) {
+    .travelList {
+      grid-template-columns: 1fr; /* En pantallas pequeñas, todo se coloca en una sola columna */
+    }
+  }
+  
