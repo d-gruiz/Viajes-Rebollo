@@ -32,6 +32,7 @@ public class PlanViajeService {
             planViaje.setUser(planViajeDetails.getUser());
             planViaje.setViajeros(planViajeDetails.getViajeros());
             planViaje.setPrecio(planViajeDetails.getPrecio());
+            planViaje.setPaqueteViaje(planViajeDetails.getPaqueteViaje());
             return planViajeRepository.save(planViaje);
         });
     }

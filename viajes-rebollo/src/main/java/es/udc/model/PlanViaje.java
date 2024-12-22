@@ -24,6 +24,10 @@ public class PlanViaje {
     @JoinColumn(name = "user_id", nullable = false)
     private Usuario user;
 
+    @ManyToOne
+    @JoinColumn(name = "paquete_viaje_id", nullable = false)
+    private PaqueteViaje paqueteViaje;
+
     @Column
     private String viajeros;
     
