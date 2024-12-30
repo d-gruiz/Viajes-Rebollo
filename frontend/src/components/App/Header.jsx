@@ -11,7 +11,7 @@ function Header() {
         <strong>PLANES DE VIAJES</strong>
       </div>
       <div onClick={() => navigate('/templates')}>
-        <strong>PLANTILLAS</strong>
+        <strong>PAQUETES DE VIAJE</strong>
       </div>
       <div onClick={() => navigate('/travels')}>
         <strong>VIAJES</strong>

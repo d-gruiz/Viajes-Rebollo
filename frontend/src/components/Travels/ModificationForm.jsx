@@ -9,6 +9,8 @@ const ModificationForm = ({ plan, isModificationOpen, handleModify, onClose }) =
     transporte: plan.transporte || '',
     alojamiento: plan.alojamiento || '',
     actividades: plan.actividades || [],
+    fechaInicio: plan.fechaInicio || '',
+    fechaFin: plan.fechaFin || '',
   });
 
   const [newActivity, setNewActivity] = useState('');
@@ -21,6 +23,8 @@ const ModificationForm = ({ plan, isModificationOpen, handleModify, onClose }) =
       transporte: plan.transporte || '',
       alojamiento: plan.alojamiento || '',
       actividades: plan.actividades || [],
+      fechaInicio: plan.fechaInicio || '',
+      fechaFin: plan.fechaFin || '',
     });
   }, [plan]);
 
@@ -58,35 +62,39 @@ const ModificationForm = ({ plan, isModificationOpen, handleModify, onClose }) =
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (!formData.precio) {
       alert('El campo Precio es obligatorio.');
       return;
     }
-  
+
+    if (new Date(formData.fechaInicio) > new Date(formData.fechaFin)) {
+      alert('La fecha de inicio no puede ser posterior a la fecha de fin.');
+      return;
+    }
+
     const postData = {
       ...formData,
       compradorId: plan.compradorId,
       viajerosId: plan.viajerosId,
     };
-  
+
     const apiUrl = `http://localhost:8080/api/plan-viaje/${plan.id}`;
-  
+
     try {
       const response = await axios.put(apiUrl, postData);
       console.log('Respuesta del servidor:', response.data);
       alert('Plan de viaje actualizado correctamente.');
-  
+
       // Pasar la respuesta actualizada al componente padre
-      handleModify(response.data);  // Actualizar el plan en la lista
-  
+      handleModify(response.data); // Actualizar el plan en la lista
+
       onClose();
     } catch (error) {
       console.error('Error al enviar los datos:', error);
       alert('Hubo un error al guardar. Intenta de nuevo.');
     }
   };
-  
 
   return (
     <div>
@@ -137,7 +145,11 @@ const ModificationForm = ({ plan, isModificationOpen, handleModify, onClose }) =
                       formData.actividades.map((activity, index) => (
                         <div key={index} className="activityItem">
                           <span>{activity}</span>
-                          <button type="button" onClick={() => removeActivity(index)} className="removeButton">
+                          <button
+                            type="button"
+                            onClick={() => removeActivity(index)}
+                            className="removeButton"
+                          >
                             -
                           </button>
                         </div>
@@ -174,13 +186,33 @@ const ModificationForm = ({ plan, isModificationOpen, handleModify, onClose }) =
                 <span>€</span>
               </label>
 
+              <label>
+                Fecha de Inicio:
+                <input
+                  type="date"
+                  name="fechaInicio"
+                  value={formData.fechaInicio}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+
+              <label>
+                Fecha de Fin:
+                <input
+                  type="date"
+                  name="fechaFin"
+                  value={formData.fechaFin}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+
               <div className="buttons">
                 <button type="button" onClick={onClose}>
                   Cancelar
                 </button>
-                <button type="submit">
-                  Guardar
-                </button>
+                <button type="submit">Guardar</button>
               </div>
             </form>
           </div>
@@ -191,4 +223,5 @@ const ModificationForm = ({ plan, isModificationOpen, handleModify, onClose }) =
 };
 
 export default ModificationForm;
+
 
