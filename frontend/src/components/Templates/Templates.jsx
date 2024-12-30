@@ -1,44 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TemplatesList from './TemplatesList';
 import CreateForm from './CreateForm';
+import ModificationForm from './ModificationForm';
 import "../../css/Templates.css";
-import { useNavigate } from 'react-router-dom';  // Importamos useNavigate
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Templates = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [plantillas, setPlantillas] = useState([
-    {
-      nombre: "Plantilla Predefinida",
-      transporte: "Avión",
-      alojamiento: "Hotel 4 estrellas",
-      actividades: ["Visita guiada", "Excursión en barco"],
-      precio: 499,
-    },  
-  ]);
-  const [packages, setPackages] = useState([
-    {
-      nombre: "Paquete Predefinido",
-      transporte: "Avión",
-      alojamiento: "Hotel 4 estrellas",
-      actividades: ["Visita guiada", "Excursión en barco"],
-      precio: 499,
-    },
-  ]);
+  const [isModificationOpen, setIsModificationOpen] = useState(false);
+  const [plantillas, setPlantillas] = useState([]);
+  const [packages, setPackages] = useState([]);
   const [formHeader, setFormHeader] = useState("Crear Plantilla");
-  const navigate = useNavigate(); // Usamos useNavigate para navegar
+  const [isPackageCreation, setIsPackageCreation] = useState(false);
+  const [templateToModify, setTemplateToModify] = useState(null);
+  const navigate = useNavigate();
 
-  const toggleModal = (header = "Crear Plantilla") => {
-    setFormHeader(header);
-    setIsModalOpen(!isModalOpen);
+  useEffect(() => {
+    const fetchTemplatesAndPackages = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/api/paquete-viaje');
+        const plantillas = response.data.filter(item => item.esModificable);
+        const packages = response.data.filter(item => !item.esModificable);
+        setPlantillas(plantillas);
+        setPackages(packages);
+      } catch (error) {
+        console.error("Error al obtener los datos del backend:", error);
+      }
+    };
+
+    fetchTemplatesAndPackages();
+  }, []);
+
+  // Actualiza las listas después de crear un paquete
+  const updateLists = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/api/paquete-viaje');
+      const plantillas = response.data.filter(item => item.esModificable);
+      const packages = response.data.filter(item => !item.esModificable);
+      setPlantillas(plantillas);
+      setPackages(packages);
+    } catch (error) {
+      console.error("Error al obtener los datos del backend:", error);
+    }
   };
 
-  const handleAddTemplate = (newTemplate) => {
-    if (formHeader === "Crear Plantilla") {
-      setPlantillas((prev) => [...prev, newTemplate]);
-    } else if (formHeader === "Crear Paquete") {
-      setPackages((prev) => [...prev, newTemplate]);
-    }
-    toggleModal();
+  const toggleModal = (header, isPackage) => {
+    setFormHeader(header);
+    setIsPackageCreation(isPackage);
+    setIsModalOpen(!isModalOpen);
   };
 
   const handleDeleteTemplate = (index, type) => {
@@ -50,7 +60,12 @@ const Templates = () => {
   };
 
   const handleNavigate = (plantilla) => {
-    navigate('/createTravel', { state: { plantilla, isTemplate: true } }); // Pasamos si es una plantilla
+    navigate('/createTravel', { state: { plantilla, isTemplate: true } });
+  };
+
+  const onModifyTemplate = (template) => {
+    setTemplateToModify(template);
+    setIsModificationOpen(true);
   };
 
   return (
@@ -60,7 +75,7 @@ const Templates = () => {
           <h1>PLANTILLAS</h1>
           <button
             className="addTemplateButton"
-            onClick={() => toggleModal("Crear Plantilla")}
+            onClick={() => toggleModal("Crear Plantilla", false)}
           >
             Añadir plantilla
           </button>
@@ -70,7 +85,8 @@ const Templates = () => {
             plantillas={plantillas}
             onDelete={handleDeleteTemplate}
             type="plantilla"
-            onNavigate={handleNavigate} // Pasamos la función de navegación
+            onNavigate={handleNavigate}
+            onModify={onModifyTemplate}
           />
         </div>
       </div>
@@ -80,7 +96,7 @@ const Templates = () => {
           <h1>PAQUETES</h1>
           <button
             className="addTemplateButton"
-            onClick={() => toggleModal("Crear Paquete")}
+            onClick={() => toggleModal("Crear Paquete", true)}
           >
             Añadir paquete
           </button>
@@ -90,7 +106,7 @@ const Templates = () => {
             plantillas={packages}
             onDelete={handleDeleteTemplate}
             type="paquete"
-            onNavigate={handleNavigate} // No debe navegar si es un paquete
+            onNavigate={handleNavigate}
           />
         </div>
       </div>
@@ -98,9 +114,18 @@ const Templates = () => {
       <CreateForm
         header={formHeader}
         isModalOpen={isModalOpen}
-        toggleModal={toggleModal}
-        handleAddTemplate={handleAddTemplate}
+        setIsModalOpen={setIsModalOpen}
+        isPackageCreation={isPackageCreation}
+        updateLists={updateLists} // Pasamos la función updateLists
       />
+
+      {templateToModify && (
+        <ModificationForm
+          template={templateToModify}
+          isModificationOpen={isModificationOpen}
+          setIsModificationOpen={setIsModificationOpen}
+        />
+      )}
     </div>
   );
 };

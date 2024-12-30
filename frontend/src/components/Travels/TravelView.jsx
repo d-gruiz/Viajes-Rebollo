@@ -1,22 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../css/TravelView.css';
 import TravelList from './TravelList';
+import axios from 'axios';
 
 function TravelView() {
-  const [activeTab, setActiveTab] = useState('previous'); // Estado para manejar la pestaña activa
+  const [activeTab, setActiveTab] = useState('previous');
+  const [previousTravels, setPreviousTravels] = useState([]);
+  const [nextTravels, setNextTravels] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Datos de ejemplo
-  const previousTravels = [
-    { name: 'Viaje a Roma', destination: 'Italia', duration: '4 días', price: 700 },
-    { name: 'Descubre Atenas', destination: 'Grecia', duration: '5 días', price: 850 },
-  ];
+  useEffect(() => {
+    const fetchTravels = async () => {
+      setLoading(true);
+      setError(null);
 
-  const nextTravels = [
-    { name: 'Explora Tokio', destination: 'Japón', duration: '7 días', price: 1500 },
-    { name: 'Safari en Sudáfrica', destination: 'Sudáfrica', duration: '10 días', price: 2000 },
-  ];
+      try {
+        const response = await axios.get('http://localhost:8080/api/plan-viaje'); // Actualiza con la URL de tu API
+        const allTravels = response.data;
 
-  // Maneja el cambio de pestañas
+        const currentDate = new Date();
+
+        // Filtra viajes anteriores y próximos
+        const pastTravels = allTravels.filter(
+          (travel) => new Date(travel.fechaFin) < currentDate
+        );
+        const upcomingTravels = allTravels.filter(
+          (travel) => new Date(travel.fechaFin) >= currentDate
+        );
+
+        setPreviousTravels(pastTravels);
+        setNextTravels(upcomingTravels);
+      } catch (error) {
+        console.error('Error al cargar los datos de viajes:', error);
+        setError('No se pudieron cargar los viajes. Intenta de nuevo más tarde.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTravels();
+  }, []);
+
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
@@ -30,11 +55,6 @@ function TravelView() {
         >
           Viajes Anteriores <span className="Arrow">→</span>
         </div>
-        <div className="TravelListContainer">
-          {activeTab === 'previous' ? (
-            <TravelList travels={previousTravels} />
-          ) : null}
-        </div>        
         <div
           className={`Tab ${activeTab === 'next' ? 'active' : ''}`}
           onClick={() => handleTabChange('next')}
@@ -43,8 +63,12 @@ function TravelView() {
         </div>
       </div>
       <div className="TravelListContainer">
-        {activeTab === 'previous' ? (
-          null
+        {loading ? (
+          <p>Cargando viajes...</p>
+        ) : error ? (
+          <p className="Error">{error}</p>
+        ) : activeTab === 'previous' ? (
+          <TravelList travels={previousTravels} />
         ) : (
           <TravelList travels={nextTravels} />
         )}
@@ -54,3 +78,4 @@ function TravelView() {
 }
 
 export default TravelView;
+

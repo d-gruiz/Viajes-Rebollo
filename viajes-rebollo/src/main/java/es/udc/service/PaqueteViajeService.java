@@ -34,8 +34,7 @@ public class PaqueteViajeService {
             paqueteViaje.setActividades(paqueteViajeDetails.getActividades());
             paqueteViaje.setEsModificable(paqueteViajeDetails.getEsModificable());
             paqueteViaje.setPrecio(paqueteViajeDetails.getPrecio());
-            paqueteViaje.setTrasporte(paqueteViajeDetails.getTrasporte());
-            paqueteViaje.setPlanesDeViaje(paqueteViajeDetails.getPlanesDeViaje());
+            paqueteViaje.setTransporte(paqueteViajeDetails.getTransporte());
             return paqueteViajeRepository.save(paqueteViaje);
         });
     }

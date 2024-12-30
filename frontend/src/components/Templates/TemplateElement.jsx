@@ -1,4 +1,4 @@
-const TemplateElement = ({ plantilla, onDelete, onCreatePlan, type }) => {
+const TemplateElement = ({ plantilla, onDelete, onCreatePlan, type, onModify }) => {
   return (
     <div className="plantilla">
       <p className="plantillaNombre">{plantilla.nombre}</p>
@@ -22,7 +22,13 @@ const TemplateElement = ({ plantilla, onDelete, onCreatePlan, type }) => {
       <p className="plantillaPrecio">
         {plantilla.precio} €
       </p>
-      
+
+      {type === "plantilla" && (
+        <button className="modifyButton" onClick={() => onModify(plantilla)}>
+          Modificar
+        </button>
+      )}
+
       {onCreatePlan && (
         <button className="createPlanButton" onClick={onCreatePlan}>
           Crear Plan de Viaje
@@ -38,3 +44,4 @@ const TemplateElement = ({ plantilla, onDelete, onCreatePlan, type }) => {
 };
 
 export default TemplateElement;
+

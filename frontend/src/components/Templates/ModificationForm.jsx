@@ -2,24 +2,30 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../../css/CreateForm.css";
 
-const CreateForm = ({ header, isModalOpen, setIsModalOpen, isPackageCreation, updateLists }) => {
+const ModificationForm = ({ template, isModificationOpen, setIsModificationOpen }) => {
   const [formData, setFormData] = useState({
-    nombre: '',
-    transporte: '',
-    alojamiento: '',
-    actividades: [],
-    precio: '',
-    esModificable: !isPackageCreation,
+    nombre: template.nombre || '',
+    transporte: template.transporte || '',
+    alojamiento: template.alojamiento || '',
+    actividades: template.actividades || [],
+    precio: template.precio || '',
+    esModificable: template.esModificable || false,
   });
 
   const [newActivity, setNewActivity] = useState('');
 
   useEffect(() => {
-    setFormData((prev) => ({
-      ...prev,
-      esModificable: !isPackageCreation,
-    }));
-  }, [isPackageCreation]);
+    if (template) {
+      setFormData({
+        nombre: template.nombre || '',
+        transporte: template.transporte || '',
+        alojamiento: template.alojamiento || '',
+        actividades: template.actividades || [],
+        precio: template.precio || '',
+        esModificable: template.esModificable || false,
+      });
+    }
+  }, [template]); // Se ejecutará cada vez que el `template` cambie
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -52,7 +58,7 @@ const CreateForm = ({ header, isModalOpen, setIsModalOpen, isPackageCreation, up
   };
 
   const onClick = () => {
-    setIsModalOpen(false);
+    setIsModificationOpen(false);
   };
 
   const handleActivityKeyDown = (e) => {
@@ -74,13 +80,13 @@ const CreateForm = ({ header, isModalOpen, setIsModalOpen, isPackageCreation, up
       ...formData,
     };
 
-    const apiUrl = 'http://localhost:8080/api/paquete-viaje';
+    const apiUrl = `http://localhost:8080/api/paquete-viaje/${template.id}`;
 
     try {
-      setIsModalOpen(false);
-      const response = await axios.post(apiUrl, postData);
-      alert('Paquete creado correctamente!');
-      updateLists();
+      setIsModificationOpen(false);  
+      const response = await axios.put(apiUrl, postData);
+      alert('Datos guardados correctamente.');
+      setIsModificationOpen(false);
     } catch (error) {
       console.error('Error al enviar los datos:', error);
       alert('Hubo un error al guardar. Intenta de nuevo.');
@@ -89,10 +95,10 @@ const CreateForm = ({ header, isModalOpen, setIsModalOpen, isPackageCreation, up
 
   return (
     <div>
-      {isModalOpen && (
+      {isModificationOpen && (
         <div className="overlay">
           <div className="modal">
-            <h2>{header}</h2>
+            <h2>Modificar paquete</h2>
             <form onSubmit={handleSubmit} className="form">
               <label>
                 Nombre:
@@ -101,7 +107,6 @@ const CreateForm = ({ header, isModalOpen, setIsModalOpen, isPackageCreation, up
                   name="nombre"
                   value={formData.nombre}
                   onChange={handleChange}
-                  placeholder="Fin de semana en Londres"
                   required
                 />
               </label>
@@ -112,7 +117,6 @@ const CreateForm = ({ header, isModalOpen, setIsModalOpen, isPackageCreation, up
                   name="transporte"
                   value={formData.transporte}
                   onChange={handleChange}
-                  placeholder={`Vuelo Madrid-Londres 18/11 11:30\nVuelo Londres-Madrid 21/11 21:00`}
                   rows="3"
                   className="largeInput"
                 />
@@ -147,7 +151,6 @@ const CreateForm = ({ header, isModalOpen, setIsModalOpen, isPackageCreation, up
                     value={newActivity}
                     onChange={(e) => setNewActivity(e.target.value)}
                     onKeyDown={handleActivityKeyDown}
-                    placeholder="Free Tour Londres 20/11 10:30"
                     className="addActivityInput"
                     rows="1"
                   />
@@ -165,7 +168,6 @@ const CreateForm = ({ header, isModalOpen, setIsModalOpen, isPackageCreation, up
                   value={formData.precio}
                   onChange={handleChange}
                   maxLength="10"
-                  placeholder="220.80"
                   required
                   className="smallInput"
                 />
@@ -188,6 +190,6 @@ const CreateForm = ({ header, isModalOpen, setIsModalOpen, isPackageCreation, up
   );
 };
 
-export default CreateForm;
+export default ModificationForm;
 
 

@@ -1,16 +1,29 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const UserForm = ({ onClose, addUser }) => {
   const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
+  const [telefono, setTelefono] = useState('');
   const [email, setEmail] = useState('');
-  const [type, setType] = useState('viajero'); // Por defecto, el tipo es 'viajero'
+  const [type, setType] = useState('viajero'); // Mantienes el tipo de usuario
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = { name, surname, email, type };
-    addUser(user); // Añadir el usuario
-    onClose(); // Cerrar el formulario
+    
+    const user = { name, telefono, email, type };
+  
+    try {
+      const response = await axios.post('http://localhost:8080/api/usuarios', user);
+
+      console.log('Usuario agregado:', response.data);
+      
+      addUser({ ...response.data, type: type });
+      
+      onClose();
+    } catch (error) {
+      console.error('Error al agregar el usuario:', error);
+      alert('Hubo un error al agregar el usuario. Por favor, intenta nuevamente.');
+    }
   };
 
   return (
@@ -25,9 +38,9 @@ const UserForm = ({ onClose, addUser }) => {
       />
       <input
         type="text"
-        placeholder="Apellido"
-        value={surname}
-        onChange={(e) => setSurname(e.target.value)}
+        placeholder="Teléfono"
+        value={telefono}
+        onChange={(e) => setTelefono(e.target.value)}
         required
       />
       <input
@@ -53,3 +66,5 @@ const UserForm = ({ onClose, addUser }) => {
 };
 
 export default UserForm;
+
+

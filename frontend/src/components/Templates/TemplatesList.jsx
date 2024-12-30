@@ -1,9 +1,9 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';  // Importamos useNavigate
-import TemplateElement from './TemplateElement'; // Importamos TemplateElement
+import { useNavigate } from 'react-router-dom';
+import TemplateElement from './TemplateElement';
 
-const TemplatesList = ({ plantillas, onDelete, type }) => {
-  const navigate = useNavigate();  // Usamos useNavigate para obtener la función de navegación
+const TemplatesList = ({ plantillas, onDelete, type, onModify }) => {
+  const navigate = useNavigate();
 
   if (!Array.isArray(plantillas) || plantillas.length === 0) {
     return null;
@@ -17,6 +17,7 @@ const TemplatesList = ({ plantillas, onDelete, type }) => {
           plantilla={plantilla}
           onDelete={() => onDelete(index, type)}
           onCreatePlan={() => navigate('/createTravel', { state: { plantilla, type } })}
+          onModify={onModify ? () => onModify(plantilla) : null}
           type={type}
         />
       ))}
@@ -25,5 +26,6 @@ const TemplatesList = ({ plantillas, onDelete, type }) => {
 };
 
 export default TemplatesList;
+
 
 

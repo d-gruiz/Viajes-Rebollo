@@ -30,6 +30,6 @@ public class Usuario {
     @Column(nullable = false)
     private String telefono;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "comprador", cascade = CascadeType.ALL, orphanRemoval = true) // Corregir mappedBy
     private List<PlanViaje> planViajes;
 }

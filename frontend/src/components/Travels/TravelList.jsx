@@ -6,24 +6,18 @@ function TravelList({ travels }) {
     <div className="TravelList">
       {travels.map((travel, index) => (
         <div className="TravelCard" key={index}>
-          <div className="TravelCardHeader">{travel.name}</div>
+          <div className="TravelCardHeader">{travel.nombre}</div>
           <div className="TravelCardBody">
-            <p><strong>Destino:</strong> {travel.destination}</p>
-            <p><strong>Duración:</strong> {travel.duration}</p>
-            <p><strong>Precio:</strong> ${travel.price}</p>
+            <p><strong>Alojamiento:</strong> {travel.alojamiento || 'No especificado'}</p>
+            <p><strong>Transporte:</strong> {travel.transporte || 'No especificado'}</p>
+            <p><strong>Precio:</strong> ${travel.precio}</p>
+            <p><strong>Fecha Inicio:</strong> {new Date(travel.fechaInicio).toLocaleDateString()}</p>
+            <p><strong>Fecha Fin:</strong> {new Date(travel.fechaFin).toLocaleDateString()}</p>
           </div>
         </div>
       ))}
     </div>
   );
 }
-
-TravelList.defaultProps = {
-  travels: [
-    { name: 'Viaje a Nueva York', destination: 'Estados Unidos', duration: '5 días', price: 800 },
-    { name: 'Vacaciones en Cancún', destination: 'México', duration: '7 días', price: 1000 },
-    { name: 'Explora Barcelona', destination: 'España', duration: '6 días', price: 1200 },
-  ],
-};
 
 export default TravelList;
